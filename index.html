@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Input</title>
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .canvas {
+            position: relative;
+            margin-bottom: 8px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .note {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50px;
+            opacity: 0;
+            transform: translate(-50%, 0);
+        }
+
+        .note.note--big {
+            width: 80px;
+        }
+
+        .note.enter {
+            opacity: 1;
+            top: 100px;
+            transition: 300ms;
+        }
+
+        .note.leave {
+            opacity: 0;
+            top: 100px;
+            transition: 300ms;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <svg class="note" data-component="quarter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.281 290.281"><path d="M205.367 0h-30v173.646c-6.239-2.566-13.111-3.922-20.305-3.922-17.458 0-35.266 7.796-48.857 21.388-25.344 25.343-28.516 63.407-7.072 84.853 9.232 9.232 22.016 14.316 35.995 14.316 17.458 0 35.266-7.796 48.857-21.388 11.843-11.843 19.308-26.842 21.018-42.234.244-2.198.355-4.38.355-6.537h.01V0z"/></svg>
+        <svg class="note" data-component="quarter-reversed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.281 290.281"><path d="M205.358 70.159c0-2.157-.11-4.339-.355-6.537-1.71-15.393-9.175-30.392-21.018-42.234C170.394 7.796 152.586 0 135.128 0c-13.979 0-26.763 5.084-35.995 14.316-21.443 21.445-18.271 59.51 7.072 84.853 13.592 13.592 31.399 21.388 48.857 21.388 7.193 0 14.065-1.355 20.305-3.922v173.647h30V70.159h-.009z"/></svg>
+        <svg class="note note--big" data-component="treble" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 439.909 439.909"><path d="M289.859 218.165c-12.238-12.083-28.92-18.736-46.975-18.736-.739 0-1.469.011-2.191.034-4.751-18.989-9.194-34.531-12.219-44.64a758.83 758.83 0 01-3.54-12.192c13.877-15.22 26.345-29.841 33.266-44.593 19.623-41.823 10.708-66.709 3.647-77.821C253.684 7.369 240.237 0 224.955 0c-13.893 0-25.356 5.533-33.149 16-15.284 20.528-15.407 58.521-.127 118.479-29.22 31.773-60.724 67.762-60.724 112.562 0 47.333 25.917 70.548 47.66 81.688 22.534 11.546 45.015 12.242 45.961 12.266l.379.005c3.073 0 6.112-.127 9.109-.378l.103 1.491c1.335 19.236 2.489 35.849.003 50.352-2.37 13.822-11.714 18.001-19.006 17.382-3.07-.261-10.21-1.744-10.21-9.848h-30c0 21.169 15.841 37.883 37.666 39.74 1.33.113 2.656.17 3.98.17a46.432 46.432 0 0027.914-9.306c10.179-7.647 16.827-19.082 19.225-33.069 3.095-18.055 1.826-36.334.356-57.5l-.317-4.583c-.043-.64-.088-1.279-.135-1.919 6.901-2.901 13.235-6.612 18.807-11.07 17.339-13.872 26.504-33.742 26.504-57.463.001-18.043-6.781-34.676-19.095-46.834zM215.868 33.916c1.515-2.034 3.663-3.916 9.086-3.916 3.451 0 8.261 1.094 11.573 6.307 2.361 3.716 8.945 18.232-5.486 48.989-3.165 6.746-8.459 14.108-14.908 21.894-10.675-50.874-4.268-67.898-.265-73.274zM225.237 311c-1.764-.087-18.08-1.109-33.732-9.38-20.557-10.862-30.55-28.715-30.55-54.579 0-27.928 19.13-54.306 40.316-78.423a1018.638 1018.638 0 0110.722 39.708c-12.94 9.11-19.038 23.895-19.038 38.007 0 11.36 4.616 21.066 12.997 27.331 6.43 4.806 14.077 6.893 21.186 7.503a682.259 682.259 0 014.186 29.57 77.704 77.704 0 01-6.087.263zm35.152-9.649c-3.197-25.015-7.776-49.574-12.6-71.639 18.327 2.149 31.166 16.328 31.166 35.288 0 17.468-7.698 29.136-18.566 36.351z"/></svg>
+        <svg class="note" data-component="eight" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.281 290.281"><path d="M209.329 79.238C183.062 55.09 169.178 27.69 169.178 0h-30v173.645c-6.239-2.564-13.111-3.921-20.305-3.921-17.458 0-35.266 7.796-48.857 21.388-25.344 25.343-28.516 63.407-7.072 84.853 9.232 9.232 22.016 14.316 35.995 14.316 17.458 0 35.266-7.796 48.857-21.388 11.843-11.843 19.308-26.842 21.018-42.234.244-2.198.354-4.379.354-6.537h.01V80.106c5.808 7.304 12.425 14.394 19.848 21.218 31.772 29.21 25.067 66.542 9.671 89.637l24.962 16.641c23.698-35.548 28.458-89.026-14.33-128.364z"/></svg>
+        <svg class="note" data-component="eight-reversed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.281 290.281"><path d="M184.076 191.112c-13.592-13.592-31.399-21.388-48.857-21.388-7.193 0-14.065 1.356-20.305 3.921V80.106c5.808 7.304 12.425 14.393 19.848 21.217 15.039 13.827 22.623 30.275 22.541 48.891l-.002.068h30.002c.101-26.995-11.046-51.56-32.236-71.044C128.798 55.09 114.914 27.689 114.914 0h-30v220.122h.01a58.96 58.96 0 00.354 6.537c1.71 15.393 9.175 30.392 21.018 42.234 13.592 13.592 31.399 21.388 48.858 21.388 13.979 0 26.763-5.084 35.995-14.316 21.443-21.445 18.271-59.51-7.073-84.853z"/></svg>
+        <div class="canvas"></div>
+        <div class="form">
+            <label for="username">Username</label>
+            <input type="text" id="username" />
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.querySelector('.canvas');
+        const input = document.querySelector('#username');
+        const notes = [
+            document.querySelector('[data-component="quarter"]'),
+            document.querySelector('[data-component="quarter-reversed"]'),
+            document.querySelector('[data-component="treble"]'),
+            document.querySelector('[data-component="eight"]'),
+            document.querySelector('[data-component="eight-reversed"]'),
+        ];
+        const time = 300;
+
+        const generateRandomInteger = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
+
+        input.addEventListener('keydown', () => {
+            const note = notes[generateRandomInteger(0, notes.length - 1)];
+            const clone = note.cloneNode(true);
+
+            clone.style.left = `${generateRandomInteger(25, 75)}%`;
+            canvas.append(clone);
+
+            setTimeout(() => {
+                clone.classList.add('enter');
+            }, 1);
+
+            setTimeout(() => {
+                clone.classList.remove('enter');
+                clone.classList.add('leave');
+
+                setTimeout(() => {
+                    clone.classList.remove('leave');
+                    clone.remove();
+                }, time);
+            }, time);
+        })
+    </script>
+</body>
+</html>
